@@ -20,7 +20,8 @@ public class ClientController {
     }
 
     @GetMapping("/clients/{id}")
-    public Client ClientById(@PathVariable Long id) throws Exception {
-        return this.clientRepository.findById(id).orElseThrow(() -> new Exception("Client inexistant"));
+    public Client FindById(@PathVariable Long id) throws Exception {
+
+        return this.clientRepository.findById(id).orElseThrow(() -> new Exception("Client inexistnt"));
     }
 }

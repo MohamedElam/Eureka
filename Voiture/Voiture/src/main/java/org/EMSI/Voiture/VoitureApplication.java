@@ -11,6 +11,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 
 
+
 @SpringBootApplication
 @EnableDiscoveryClient
 public class VoitureApplication {
@@ -19,10 +20,15 @@ public class VoitureApplication {
 		SpringApplication.run(VoitureApplication.class, args);
 	}
 	@Bean
-	CommandLineRunner initialiserBaseH2(VoitureRepository voitureRepository, ClientService cs){
-		return args-> {
-			Client c1 = cs.ClientById(2L);
-			Client c2 = cs.ClientById(1L);
+	public CommandLineRunner initializeDatabase(
+			VoitureRepository voitureRepository,
+			ClientService clientService) {
+
+		return args -> {
+
+			Client c1 = clientService.clientById(2L);
+			Client c2 = clientService.clientById(1L);
+
 			System.out.println("**************************");
 			System.out.println("Id est :" + c2.getId());
 			System.out.println("Nom est :" + c2.getNom());
@@ -32,9 +38,10 @@ public class VoitureApplication {
 			System.out.println("Nom est :" + c1.getNom());
 			System.out.println("Nom est :" + c1.getAge());
 			System.out.println("**************************");
-			voitureRepository.save(new Voiture(Long.parseLong("1"), "Toyota", "A 25 333", "Corolla", 1L));
-			voitureRepository.save(new Voiture(Long.parseLong("2"), "Renault", "B 6 3456", "Megane", 1L));
-			voitureRepository.save(new Voiture(Long.parseLong("3"), "Peugeot", "A 55 4444", "301", 2L));
+
+			voitureRepository.save(new Voiture(Long.parseLong("1"), "Toyota", "Yaris","A 25 333", 1L, c2));
+			voitureRepository.save(new Voiture(Long.parseLong("2"), "Citroen", "C3","B 6 3456" , 1L, c2));
+			voitureRepository.save(new Voiture(Long.parseLong("3"), "BMW", "M3","A 55 4444", 2L, c1));
 		};
 	}
 }

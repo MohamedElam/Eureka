@@ -23,19 +23,5 @@ public class Voiture {
     @ManyToOne
     private Client client;
 
-    public Voiture(Long id, String marque, String model, String matricule, Long id_client) {
-        this.id = id;
-        this.marque = marque;
-        this.model = model;
-        this.matricule = matricule;
-        this.id_client = id_client;
-    }
 
-    public void setClientId(Long clientId) {
-        this.id_client = clientId;
-    }
-
-    public Long getClientId() {
-        return id_client;
-    }
 }
